@@ -40,7 +40,7 @@ func getShiftBySchedule() {
     
     while !shiftTypesArray.contains(input) {
         print("Enter work shift on the first Jenuary (e.g. \(shiftTypesArray.joined(separator: ", "))) or \"exit\" to stop the program")
-        input = String(readLine(strippingNewline: true)!)
+        input = String(readLine(strippingNewline: true) ?? "")
         if (input == "exit") {
             return
         }
@@ -57,12 +57,12 @@ func getShiftBySchedule() {
     
     while month > 12 || month < 1 {
         print("Enter month (1-12)")
-        month = Int(readLine(strippingNewline: true)!) ?? 0
+        month = Int(readLine(strippingNewline: true) ?? "") ?? 0
     }
     
     while day > 31 || day < 1 {
         print("Enter day (1-31)")
-        day = Int(readLine(strippingNewline: true)!) ?? 0
+        day = Int(readLine(strippingNewline: true) ?? "") ?? 0
     }
     
     guard let shiftDate = getDateBy(month: month, day: day) else { return }
@@ -76,6 +76,7 @@ func getShiftBySchedule() {
 func createScheduleBy(firstDayShiftType: ShiftTypes, startDate: Date, lastDate: Date) -> [String: ShiftTypes]? {
     
     let period = createPeriodBy(firstDate: startDate, lastDate: lastDate)
+    guard period.count > 0 else { return nil }
     let spreadingRemain = period.count % ShiftTypes.allCases.count
     
     var shiftQueue = [ShiftTypes]()
@@ -112,15 +113,13 @@ func createPeriodBy(firstDate: Date, lastDate: Date, dateFormat: String = "dd.MM
     
     while currentDate <= lastDate {
         period.append(formatter.string(from: currentDate))
-        currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+        guard let date = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) else { return [] }
+        currentDate = date
     }
     
     return period
 }
 
-/**
- При получении варианта несуществующего дня (31.09) получаем слудующий день, пока не знаю как решить данный момент нативно
- */
 func getDateBy(month: Int, day: Int, dateFormat: String = "dd.MM.yyyy") -> String? {
     let calendar = Calendar.current
     let year = calendar.component(.year, from: Date())

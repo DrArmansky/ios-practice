@@ -13,7 +13,7 @@ protocol Queue {
 
 struct SomeCollection<T: Equatable>: Queue {
     
-    internal var list = [T]()
+    var list = [T]()
 
     var isEmpty: Bool {
         return list.isEmpty

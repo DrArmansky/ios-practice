@@ -2,7 +2,7 @@
 protocol Queue {
     associatedtype Element: Equatable
     
-    var list: [Element] { get set }
+    private var list: [Element] { get set }
     
     mutating func enqueue(_ element: Element)
     

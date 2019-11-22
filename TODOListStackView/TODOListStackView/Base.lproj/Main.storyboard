@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TODOListStackView" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TmD-Pt-NRx">
+                                <rect key="frame" x="0.0" y="44" width="414" height="750"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EDX-cG-oj6">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="EDX-cG-oj6" firstAttribute="leading" secondItem="TmD-Pt-NRx" secondAttribute="leading" id="Fx7-7O-cMf"/>
+                                    <constraint firstAttribute="trailing" secondItem="EDX-cG-oj6" secondAttribute="trailing" id="Zcw-ee-8Az"/>
+                                    <constraint firstItem="EDX-cG-oj6" firstAttribute="top" secondItem="TmD-Pt-NRx" secondAttribute="top" id="if7-VN-CCm"/>
+                                    <constraint firstAttribute="bottom" secondItem="EDX-cG-oj6" secondAttribute="bottom" id="xrT-6A-uFs"/>
+                                </constraints>
+                            </scrollView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="v4a-0k-Bgd">
+                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Z7-tI-ydy">
+                                        <rect key="frame" x="0.0" y="0.0" width="337" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-b9-4ap">
+                                        <rect key="frame" x="345" y="0.0" width="69" height="60"/>
+                                        <state key="normal" title="Добавить"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="m7B-C1-2Gi"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="v4a-0k-Bgd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Leb-M9-DlT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TmD-Pt-NRx" secondAttribute="trailing" id="Mbd-e3-1Su"/>
+                            <constraint firstItem="EDX-cG-oj6" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.829241" priority="250" id="Mlj-fI-PfU"/>
+                            <constraint firstItem="TmD-Pt-NRx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Wnw-Hg-f5n"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="v4a-0k-Bgd" secondAttribute="bottom" id="ZRe-Jp-BNo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v4a-0k-Bgd" secondAttribute="trailing" id="Zgw-Da-BdJ"/>
+                            <constraint firstItem="v4a-0k-Bgd" firstAttribute="top" secondItem="TmD-Pt-NRx" secondAttribute="bottom" constant="8" id="pim-TI-L5g"/>
+                            <constraint firstItem="TmD-Pt-NRx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xku-oL-Xhn"/>
+                            <constraint firstItem="EDX-cG-oj6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ykx-R6-e5x"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="101.78571428571428"/>
+        </scene>
+    </scenes>
+</document>

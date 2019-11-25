@@ -16,13 +16,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TmD-Pt-NRx">
-                                <rect key="frame" x="0.0" y="44" width="414" height="750"/>
+                                <rect key="frame" x="10" y="54" width="394" height="748"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EDX-cG-oj6">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EDX-cG-oj6" customClass="NoteListView" customModule="TODOListStackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="896"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="EDX-cG-oj6" firstAttribute="centerX" secondItem="TmD-Pt-NRx" secondAttribute="centerX" id="5cp-qZ-E7E"/>
                                     <constraint firstItem="EDX-cG-oj6" firstAttribute="leading" secondItem="TmD-Pt-NRx" secondAttribute="leading" id="Fx7-7O-cMf"/>
                                     <constraint firstAttribute="trailing" secondItem="EDX-cG-oj6" secondAttribute="trailing" id="Zcw-ee-8Az"/>
                                     <constraint firstItem="EDX-cG-oj6" firstAttribute="top" secondItem="TmD-Pt-NRx" secondAttribute="top" id="if7-VN-CCm"/>
@@ -30,37 +31,55 @@
                                 </constraints>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="v4a-0k-Bgd">
-                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <rect key="frame" x="10" y="802" width="394" height="60"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Z7-tI-ydy">
-                                        <rect key="frame" x="0.0" y="0.0" width="337" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rl3-Mc-wxT">
+                                        <rect key="frame" x="0.0" y="0.0" width="281" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Lorem ipsum dolor sit er elit lamet, consectetaur ">
+                                                <attributes>
+                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="NSFont" metaFont="menu" size="14"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-b9-4ap">
-                                        <rect key="frame" x="345" y="0.0" width="69" height="60"/>
+                                        <rect key="frame" x="289" y="0.0" width="105" height="60"/>
+                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" title="Добавить"/>
+                                        <connections>
+                                            <action selector="addNote:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rTr-Hj-ucW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="m7B-C1-2Gi"/>
+                                    <constraint firstAttribute="height" constant="60" id="m7B-C1-2Gi"/>
+                                    <constraint firstItem="jfg-b9-4ap" firstAttribute="width" secondItem="v4a-0k-Bgd" secondAttribute="width" multiplier="0.266667" id="zOB-U6-z2e"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="v4a-0k-Bgd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Leb-M9-DlT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TmD-Pt-NRx" secondAttribute="trailing" id="Mbd-e3-1Su"/>
-                            <constraint firstItem="EDX-cG-oj6" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.829241" priority="250" id="Mlj-fI-PfU"/>
-                            <constraint firstItem="TmD-Pt-NRx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Wnw-Hg-f5n"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="v4a-0k-Bgd" secondAttribute="bottom" id="ZRe-Jp-BNo"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v4a-0k-Bgd" secondAttribute="trailing" id="Zgw-Da-BdJ"/>
-                            <constraint firstItem="v4a-0k-Bgd" firstAttribute="top" secondItem="TmD-Pt-NRx" secondAttribute="bottom" constant="8" id="pim-TI-L5g"/>
-                            <constraint firstItem="TmD-Pt-NRx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xku-oL-Xhn"/>
-                            <constraint firstItem="EDX-cG-oj6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ykx-R6-e5x"/>
+                            <constraint firstItem="TmD-Pt-NRx" firstAttribute="centerX" secondItem="v4a-0k-Bgd" secondAttribute="centerX" id="38J-EA-XxP"/>
+                            <constraint firstItem="v4a-0k-Bgd" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="69T-Xt-abX"/>
+                            <constraint firstItem="v4a-0k-Bgd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Leb-M9-DlT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TmD-Pt-NRx" secondAttribute="trailing" constant="10" id="Mbd-e3-1Su"/>
+                            <constraint firstItem="EDX-cG-oj6" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" priority="250" id="Mlj-fI-PfU"/>
+                            <constraint firstItem="TmD-Pt-NRx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Wnw-Hg-f5n"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v4a-0k-Bgd" secondAttribute="trailing" constant="10" id="Zgw-Da-BdJ"/>
+                            <constraint firstItem="v4a-0k-Bgd" firstAttribute="top" secondItem="TmD-Pt-NRx" secondAttribute="bottom" id="pim-TI-L5g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="addButton" destination="jfg-b9-4ap" id="Ygq-wd-9PN"/>
+                        <outlet property="notesList" destination="EDX-cG-oj6" id="z9k-Fv-NS8"/>
+                        <outlet property="textView" destination="Rl3-Mc-wxT" id="xIC-wj-EyM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

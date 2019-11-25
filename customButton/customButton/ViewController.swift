@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
     private func addButton() {
         
-        let button = CustomButtonController()
+        let button = CustomButton()
         self.view.addSubview(button)
         
         button.translatesAutoresizingMaskIntoConstraints = false

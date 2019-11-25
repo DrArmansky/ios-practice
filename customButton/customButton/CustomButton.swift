@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomButtonController: UIButton {
+class CustomButton: UIButton {
     
     var icon: UIImage?
 
@@ -36,7 +36,8 @@ class CustomButtonController: UIButton {
     
     private func setContent() {
         
-        icon = resizeImage(image: UIImage(named: "avatar")!, newWidth: 80)
+        guard let image = UIImage(named: "avatar") else { return }
+        icon = Helper.resizeImage(image: image, newWidth: 80)
         let iconView = UIImageView(image: icon)
         
         let label = UILabel()
@@ -67,20 +68,4 @@ class CustomButtonController: UIButton {
         layer.borderWidth = width
         layer.cornerRadius = cornerRadius
     }
-
-    // Было удивлением как делается ресайз, если есть вариант проще, то с радостью послушаю
-    
-    private func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
-
-         let scale = newWidth / image.size.width
-         let newHeight = image.size.height * scale
-         UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-         image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-
-         let newImage = UIGraphicsGetImageFromCurrentImageContext()
-         UIGraphicsEndImageContext()
-
-         return newImage
-     }
-
 }

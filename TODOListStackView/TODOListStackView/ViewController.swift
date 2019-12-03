@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let addButtonRadius = 5
+    let elementRadius = CGFloat(5)
+    let borderWidth = CGFloat(2)
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var addButton: UIButton!
@@ -36,7 +37,9 @@ class ViewController: UIViewController {
     
     private func setup() {
         
-        addButton.layer.cornerRadius = CGFloat(addButtonRadius)
+        addButton.layer.cornerRadius = CGFloat(elementRadius)
+        textView.layer.borderWidth = borderWidth
+        textView.layer.cornerRadius = elementRadius
         
         addObservers()
         self.hideKeyboardWhenTappedAround()
@@ -70,6 +73,10 @@ class ViewController: UIViewController {
 
     @IBAction func addNote(_ sender: Any) {
         
+        guard textView.text != nil else { return }
+        
+        notesList.addNoteWith(message: textView.text)
+        textView.text = ""
     }
 }
 

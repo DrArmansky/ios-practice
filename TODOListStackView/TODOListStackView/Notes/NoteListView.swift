@@ -10,26 +10,39 @@ import UIKit
 
 class NoteListView: UIStackView {
     
+    override init(frame: CGRect) {
+         super.init(frame: frame)
+         
+         setup()
+     }
+     
+     required init(coder: NSCoder) {
+         super.init(coder: coder)
+         
+         setup()
+     }
+    
+    private func setup() {
+        
+        distribution = UIStackView.Distribution.fillProportionally
+        alignment = UIStackView.Alignment.fill
+    }
+    
     func addNotes(notes: Notes) {
         
         guard notes.list.count > 0 else { return }
         
         notes.list.forEach { item in
             
-            let label = UILabel()
-            label.text = item.message
-            
-            self.addArrangedSubview(label)
+            self.addNoteWith(message: item.message)
         }
+    }
+    
+    func addNoteWith(message: String) {
         
-        self.addArrangedSubview(NoteView(message: "TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE"))
-        
-        for _ in 0...100 {
-            let label = UILabel()
-            label.numberOfLines = 0
-            label.text = "TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE TEST FILEDS LET SEE"
-           
-           self.addArrangedSubview(label)
-        }
+        let note = NoteView()
+        note.fillNoteBy(text: message)
+         
+        self.addArrangedSubview(note)
     }
 }

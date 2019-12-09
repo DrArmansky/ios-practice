@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var notesList: NoteListView!
+    @IBOutlet weak var mainScrollView: UIScrollView!
     
     
     override func viewDidLoad() {
@@ -55,12 +56,10 @@ class ViewController: UIViewController {
         
         if notification.name == UIResponder.keyboardWillHideNotification {
     
-            self.view.frame.origin.y += keyboardFrame.height
-            
+            mainScrollView.contentOffset = CGPoint.zero
         } else {
             
-            self.view.frame.origin.y -= keyboardFrame.height
-            
+            mainScrollView.contentOffset = CGPoint(x: 0, y: keyboardFrame.height)
         }
     }
     
@@ -77,13 +76,13 @@ class ViewController: UIViewController {
         
         notesList.addNoteWith(message: textView.text)
         textView.text = ""
+        textView.resignFirstResponder()
     }
 }
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 

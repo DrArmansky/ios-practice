@@ -29,10 +29,12 @@ class NoteView: UIStackView {
     private func setup() {
         
         distribution = UIStackView.Distribution.fill
-        alignment = UIStackView.Alignment.leading
+        alignment = UIStackView.Alignment.center
     }
     
     func fillNoteBy(text: String) {
+        
+        guard !text.isEmpty else { return }
         
         prepareLabel(noteText: text)
         prepareDeleteButton()
@@ -49,9 +51,8 @@ class NoteView: UIStackView {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = cornerRadius
-        button.layer.borderWidth = borderWidth
-        button.layer.borderColor = UIColor.red.cgColor
+        
+        NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50).isActive = true
         
         button.addTarget(self, action: #selector(deleteNote), for: .touchUpInside)
         
@@ -68,9 +69,6 @@ class NoteView: UIStackView {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.layer.masksToBounds = true
-        label.layer.cornerRadius = cornerRadius
-        label.layer.borderWidth = borderWidth
-        label.layer.borderColor = UIColor.black.cgColor
         
         label.text = noteText
         

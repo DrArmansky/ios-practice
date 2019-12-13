@@ -16,7 +16,11 @@ class ImageCell: UICollectionViewCell {
         super.awakeFromNib()
     }
 
-    func setup(imageName: String) {
+    /*func setup(imageName: String) {
         image.contentMode = .scaleAspectFit
+    }*/
+    
+    func setup(color: UIColor) {
+        backgroundColor = color
     }
 }

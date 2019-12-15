@@ -11,9 +11,10 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var layout: UICollectionViewFlowLayout!
     
     let cellID = "ImageCell"
-    let columnsNumber = 2
+    var columnsNumber = 2
     let sectionNumbers = 2
     
     var innerInsets: UIEdgeInsets?
@@ -38,15 +39,36 @@ class ViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
         
         collectionView.register(UINib(nibName: cellID, bundle: nil), forCellWithReuseIdentifier: cellID)
         innerInsets = UIEdgeInsets(top: 0, left: 10, bottom: 50, right: 10)
     }
 
+    
+    func prepareItemSizeForVertical(collectionView: UICollectionView) -> CGSize {
+        let itemSpace = (innerInsets?.left ?? 0 + (innerInsets?.right ?? 0)) * 1.5
+        let width: CGFloat = collectionView.frame.width as CGFloat / CGFloat(columnsNumber) - itemSpace
+        return CGSize(width: width, height: width)
+    }
+    
+    @IBAction func segmentedControlAction(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            layout.scrollDirection = .vertical
+        } else {
+            layout.scrollDirection = .horizontal
+        }
+    }
+
+    @IBAction func changeNumberOfColums(_ sender: UIStepper) {
+        columnsNumber = Int(sender.value)
+        layout.invalidateLayout()
+    }
 }
 
 extension ViewController: UICollectionViewDataSource {
     
+    // Убрать мультипликатор когда разберемся со списком картинок
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count * 5
     }

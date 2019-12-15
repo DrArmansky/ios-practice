@@ -32,21 +32,41 @@
                                     <segment title="Vertical"/>
                                     <segment title="Horisontal"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentedControlAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="6mk-6b-hcY"/>
+                                </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Количество столбцов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGv-e3-iHV">
+                                <rect key="frame" x="120.5" y="43.5" width="173" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minimumValue="2" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="Uop-Po-U7m">
+                                <rect key="frame" x="160" y="78" width="94" height="32"/>
+                                <connections>
+                                    <action selector="changeNumberOfColums:" destination="BYZ-38-t0r" eventType="valueChanged" id="rle-J7-ajP"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Uop-Po-U7m" firstAttribute="centerY" secondItem="3UF-CY-HbM" secondAttribute="top" constant="50" id="Kbn-ez-EaH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3UF-CY-HbM" secondAttribute="bottom" id="SCy-Hx-I1F"/>
+                            <constraint firstItem="CGv-e3-iHV" firstAttribute="centerY" secondItem="3UF-CY-HbM" secondAttribute="top" constant="10" id="ScX-PT-WHX"/>
                             <constraint firstItem="B8B-wg-V9M" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UD1-si-YUO"/>
                             <constraint firstItem="B8B-wg-V9M" firstAttribute="bottom" secondItem="3UF-CY-HbM" secondAttribute="bottom" id="VjY-aj-DYI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3UF-CY-HbM" secondAttribute="trailing" id="dfd-BV-oIe"/>
+                            <constraint firstItem="Uop-Po-U7m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eEo-cA-39O"/>
                             <constraint firstItem="3UF-CY-HbM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jRv-Hd-mQI"/>
+                            <constraint firstItem="CGv-e3-iHV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lou-yG-sJZ"/>
                             <constraint firstItem="3UF-CY-HbM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xna-fu-E2r"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="3UF-CY-HbM" id="QfS-UJ-iDB"/>
+                        <outlet property="layout" destination="xou-6C-sbU" id="v9t-xD-BWS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

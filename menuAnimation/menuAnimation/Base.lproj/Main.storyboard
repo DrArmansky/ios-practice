@@ -16,26 +16,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLK-6N-2sl">
-                                <rect key="frame" x="167" y="433" width="80" height="30"/>
+                                <rect key="frame" x="167" y="438" width="80" height="30"/>
                                 <state key="normal" title="Show menu"/>
+                                <connections>
+                                    <action selector="openMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pjJ-ej-3Ej"/>
+                                </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wat-n0-jLC">
-                                <rect key="frame" x="0.0" y="0.0" width="268" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="gLK-6N-2sl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Xdp-64-epL"/>
-                            <constraint firstItem="gLK-6N-2sl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mIk-bb-mbP"/>
+                            <constraint firstItem="gLK-6N-2sl" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="RlK-3l-cTn"/>
+                            <constraint firstItem="gLK-6N-2sl" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ccu-2H-K3x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <connections>
-                        <outlet property="menu" destination="wat-n0-jLC" id="0Ag-qU-GI4"/>
-                        <outlet property="view" destination="wat-n0-jLC" id="RC2-sz-AGY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

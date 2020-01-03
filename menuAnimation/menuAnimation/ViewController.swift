@@ -10,9 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var menu: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        menu.layer.shadowColor = UIColor.black.cgColor
+        menu.layer.shadowOpacity = 0.4
+        menu.layer.shadowOffset = .zero
+        menu.layer.shadowRadius = 10
+        
+        // попробовать удалить констрейн
+        NSLayoutConstraint(item: menu, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: -menu.frame.width).isActive = true
     }
 
 

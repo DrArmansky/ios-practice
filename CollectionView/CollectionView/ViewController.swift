@@ -14,25 +14,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var layout: UICollectionViewFlowLayout!
     
     let cellID = "ImageCell"
-    var columnsNumber = 2
+    let imagesPath =  "/Images"
+    var itemsPerRow = 2
     let sectionNumbers = 2
+    var imageURLs: [URL]?
     
     var innerInsets: UIEdgeInsets?
-    
-    let data = [
-         UIColor.green,
-         UIColor.yellow,
-         UIColor.brown
-    ]
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         setup()
-        
-        /*let paths = Bundle.main.paths(forResourcesOfType: "jpg", inDirectory: "Assets/Images")
-        print()*/
     }
     
     func setup() {
@@ -43,12 +36,32 @@ class ViewController: UIViewController {
         
         collectionView.register(UINib(nibName: cellID, bundle: nil), forCellWithReuseIdentifier: cellID)
         innerInsets = UIEdgeInsets(top: 0, left: 10, bottom: 50, right: 10)
+        
+        prepareImageURLs()
     }
-
     
-    func prepareItemSizeForVertical(collectionView: UICollectionView) -> CGSize {
+    // Берем адреса картинок список из дериктории
+    private func prepareImageURLs() {
+        guard let path = Bundle.main.resourcePath else { return }
+        
+        let imagePath = path + imagesPath
+        let url = NSURL(fileURLWithPath: imagePath)
+        let fileManager = FileManager.default
+
+        let properties = [URLResourceKey.localizedNameKey,
+                          URLResourceKey.creationDateKey, URLResourceKey.localizedTypeDescriptionKey]
+
+        do {
+            imageURLs = try fileManager.contentsOfDirectory(at: url as URL, includingPropertiesForKeys: properties, options:FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+
+        } catch let error1 as NSError {
+            print(error1.description)
+        }
+    }
+    
+    private func prepareItemSizeForVertical(collectionView: UICollectionView) -> CGSize {
         let itemSpace = (innerInsets?.left ?? 0 + (innerInsets?.right ?? 0)) * 1.5
-        let width: CGFloat = collectionView.frame.width as CGFloat / CGFloat(columnsNumber) - itemSpace
+        let width: CGFloat = collectionView.frame.width as CGFloat / CGFloat(itemsPerRow) - itemSpace
         return CGSize(width: width, height: width)
     }
     
@@ -61,24 +74,23 @@ class ViewController: UIViewController {
     }
 
     @IBAction func changeNumberOfColums(_ sender: UIStepper) {
-        columnsNumber = Int(sender.value)
-        layout.invalidateLayout()
+        itemsPerRow = Int(sender.value)
+        collectionView.reloadData()
     }
 }
 
 extension ViewController: UICollectionViewDataSource {
     
-    // Убрать мультипликатор когда разберемся со списком картинок
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count * 5
+        return (imageURLs?.count ?? 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        guard let URLs = self.imageURLs, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
             as? ImageCell else { return UICollectionViewCell() }
-        let index = indexPath.item % data.count
-        let color = data[index]
-        cell.setup(color: color)
+        let index = indexPath.item % URLs.count
+        let url = URLs[index]
+        cell.setup(path: url)
         return cell
     }
     
@@ -92,7 +104,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let itemSpace = (innerInsets?.left ?? 0 + (innerInsets?.right ?? 0)) * 1.5
-        let width: CGFloat = collectionView.frame.width as CGFloat / CGFloat(columnsNumber) - itemSpace
+        let width: CGFloat = collectionView.frame.width as CGFloat / CGFloat(itemsPerRow) - itemSpace
         return CGSize(width: width, height: width)
     }
     

@@ -15,7 +15,7 @@ class SecondViewController: UIViewController, MenuContainerProtocol {
     var menu: Menu?
     
     func initializeMenu() {
-        menu =  Menu(withViewController: self)
+        menu = Menu(withViewController: self)
         menu?.setup()
     }
     

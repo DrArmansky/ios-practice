@@ -10,9 +10,13 @@ import UIKit
 
 struct PositionAnumations {
     
+    //MARK: - Properties
+    
     static var defaultDuration = 0.6
     static var accelerationlDuration = 0.2
     static var offset = 40
+    
+    //MARK: - Animation types
     
     static func hideSpringAnimation(view: UIView) {
         UIView.animate(

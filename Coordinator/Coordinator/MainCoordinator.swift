@@ -2,8 +2,8 @@
 //  MainCoordinator.swift
 //  Coordinator
 //
-//  Created by Константин Савялов on 05.12.2019.
-//  Copyright © 2019 Константин Савялов. All rights reserved.
+//  Created by Kira on 20.01.2020.
+//  Copyright © 2020 Kira. All rights reserved.
 //
 
 import UIKit
@@ -22,16 +22,15 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func buySubscription() {
-        let vc = BuyViewController.instantiate()
+    func switchFirstVC() {
+        let vc = FirstViewController.instantiate()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
 
-    func createAccount() {
-        let vc = CreateAccountViewController.instantiate()
+    func switchSecondVC() {
+        let vc = SecondViewController.instantiate()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
 }
-

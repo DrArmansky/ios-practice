@@ -1,9 +1,9 @@
 //
-//  Coordinator.swift
+//  CoordinatorProtocol.swift
 //  Coordinator
 //
-//  Created by Константин Савялов on 05.12.2019.
-//  Copyright © 2019 Константин Савялов. All rights reserved.
+//  Created by Kira on 20.01.2020.
+//  Copyright © 2020 Kira. All rights reserved.
 //
 
 import UIKit

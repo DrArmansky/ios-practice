@@ -10,7 +10,7 @@ import UIKit
 
 class SecondViewController: UIViewController, MenuContainerProtocol {
     
-    static var menuItemId: MenuList = .second
+    static var menuItemId: MenuList = .SecondVC
     
     var menu: Menu?
     

@@ -10,7 +10,7 @@ import UIKit
 
 class FourthViewController: UIViewController, MenuContainerProtocol {
     
-    static var menuItemId: MenuList = .fourth
+    static var menuItemId: MenuList = .FourthVC
     
     var menu: Menu?
     

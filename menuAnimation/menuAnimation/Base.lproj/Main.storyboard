@@ -40,7 +40,7 @@
         <!--Third View Controller-->
         <scene sceneID="N5W-CB-WeF">
             <objects>
-                <viewController storyboardIdentifier="ThirdViewController" id="Czi-Mc-7F5" customClass="ThirdViewController" customModule="menuAnimation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThirdVC" id="Czi-Mc-7F5" customClass="ThirdViewController" customModule="menuAnimation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vOG-fy-sba">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
         <!--Fourth View Controller-->
         <scene sceneID="I98-cn-EDC">
             <objects>
-                <viewController storyboardIdentifier="FourthViewController" id="aQZ-L4-c4o" customClass="FourthViewController" customModule="menuAnimation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FourthVC" id="aQZ-L4-c4o" customClass="FourthViewController" customModule="menuAnimation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hF2-kX-OjG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

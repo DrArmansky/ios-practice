@@ -15,6 +15,8 @@ class Menu {
     private let menuWidthMultiplicator = 0.7
     public static var controllersList:[UIViewController] = []
     let viewController: UIViewController
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+    var timer: Timer?
     
     //MARK: - View items
     
@@ -48,6 +50,7 @@ class Menu {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Menu", for: .normal)
         button.setTitleColor(.green, for: .normal)
+        button.setTitleColor(.gray, for: .disabled)
         
         return button
     }()
@@ -67,6 +70,14 @@ class Menu {
     
     init(withViewController viewController: UIViewController) {
         self.viewController = viewController
+        
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [ weak self ] in
+            if self?.openMenuButton.isEnabled == false, let openedMenu = self?.menu {
+                PositionAnumations.hideSpringAnimation(view: openedMenu)
+                self?.openMenuButton.isEnabled = true
+            }
+            self?.endBackgorundTask()
+        }
     }
     
     //MARK: - Setup's
@@ -90,27 +101,18 @@ class Menu {
         ])
     }
     
-    //TODO: add buttons observers
     //TODO: close menu by timing
-    
-    //MARK: - PROBLEM
-    
-    /**
-        Здесь прям затыка серезная произошла.
-        Хотел попробовать сделать все интерактивно, но как обычно уперся в констрейнты.
-        Сколько бы не высталял, не отображается список.
-        Пробовал в сториборде накидать - все ок, но через код не выходит.
-        Ошибок констрейнтов при сборке нет.
-     */
     
     private func setupMenuList() {
         
         for menuItemId in MenuList.allCases {
             let menuItem = UIButton()
             menuItem.translatesAutoresizingMaskIntoConstraints = false
-            menuItem.setTitle("\(menuItemId)", for: .normal)
+            menuItem.setTitle(menuItemId.rawValue, for: .normal)
+            menuItem.setTitleColor(.black, for: .normal)
             
             menuList.addArrangedSubview(menuItem)
+            menuItem.addTarget(self, action: #selector(selectMenuItem), for: .touchUpInside)
         }
         
         menu.addSubview(menuList)
@@ -120,6 +122,12 @@ class Menu {
             menuList.centerYAnchor.constraint(equalTo: menu.centerYAnchor),
             menuList.widthAnchor.constraint(equalTo: menu.widthAnchor, multiplier: 1)
         ])
+    }
+    
+    @objc func selectMenuItem(_ sender: UIButton) {
+        if let menuItemId = sender.titleLabel?.text, let controllerId = MenuList(rawValue: menuItemId) {
+            self.changeRootViewController(byId: "\(controllerId)")
+        }
     }
     
     private func setupMenuOpenButton() {
@@ -155,13 +163,22 @@ class Menu {
         window.makeKeyAndVisible()
     }
     
+    func endBackgorundTask() {
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = .invalid
+    }
+    
     //MARK: - Handlers
     
     @objc func hideMenu() {
+        timer?.invalidate()
         PositionAnumations.hideSpringAnimation(view: menu)
+        self.openMenuButton.isEnabled = true
     }
     
-    @objc func openMenu() {
+    @objc func openMenu(_ sender: UIButton) {
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(hideMenu), userInfo: nil, repeats: false)
+        sender.isEnabled = false
         PositionAnumations.showSpringAnumation(view: menu)
     }
 }

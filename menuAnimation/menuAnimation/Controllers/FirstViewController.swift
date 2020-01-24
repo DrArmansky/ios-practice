@@ -10,7 +10,7 @@ import UIKit
 
 class FirstViewController: UIViewController, MenuContainerProtocol {
     
-    static var menuItemId: MenuList = .first
+    static var menuItemId: MenuList = .FirstVC
     
     var menu: Menu?
     
@@ -23,6 +23,5 @@ class FirstViewController: UIViewController, MenuContainerProtocol {
         super.viewDidLoad()
         initializeMenu()
     }
-    
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class ThirdViewController: UIViewController, MenuContainerProtocol {
     
-    static var menuItemId: MenuList = .third
+    static var menuItemId: MenuList = .ThirdVC
     
     var menu: Menu?
     

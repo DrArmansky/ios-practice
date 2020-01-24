@@ -9,8 +9,8 @@
 import UIKit
 
 enum MenuList: String, CaseIterable {
-    case first  = "FirstVC"
-    case second = "SecondVC"
-    case third  = "ThirdVC"
-    case fourth = "FourthVC"
+    case FirstVC = "first"
+    case SecondVC = "second"
+    case ThirdVC = "third"
+    case FourthVC = "fourth"
 }

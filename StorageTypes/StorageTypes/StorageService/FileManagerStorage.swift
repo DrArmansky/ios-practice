@@ -17,7 +17,7 @@ class FileManagerStorage<T: StorageKeys>: StorageProtocol {
     
     func setWith(key: storageKeys, value: Any) {
         guard let data = value as? String else { return }
-        let path = (tempDir as NSString).appendingPathComponent("\(key.rawValue).\(fileExt)")
+        let path = (tempDir as NSString).appendingPathComponent()
         
         do {
             try data.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)

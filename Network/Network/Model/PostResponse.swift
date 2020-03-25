@@ -21,3 +21,15 @@ struct PostResponse: Decodable {
         case body
     }
 }
+
+extension PostResponse {
+    var dictionary: [String: Any] {
+        let dictionary: [String: Any] = [
+            "id": self.id,
+            "userId": self.userId as Any,
+            "title": self.title as Any,
+            "body": self.body as Any
+        ]
+        return dictionary
+    }
+}

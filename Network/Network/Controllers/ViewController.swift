@@ -7,39 +7,50 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
     
     let cellId = "PostTableViewCell"
-    var postList: [PostResponse]?
     let testPostData = PostRequest(id: nil, userId: 3, title: "Test title", body: "Test body text")
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var dataProvider = PostsDataProvider(persistentContainer: PostsCoreDataStack.shared.persistentContainer, networkManager: NetworkManager())
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<PostManagedObject> = {
+        let fetchRequest = NSFetchRequest<PostManagedObject>(entityName: PostsDataProvider.entityName)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending:true)]
+        
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                    managedObjectContext: dataProvider.viewContext,
+                                                    sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self
+        
+        do {
+            try controller.performFetch()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        return controller
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         
-        NetworkManager().getPots { (posts, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            self.postList = posts
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        super.viewDidLoad()
+        dataProvider.fetchPosts { (error) in
+            print(error as Any)
         }
-    
     }
     
     private func setup() {
-        
         tableView.dataSource = self
         /*tableView.estimatedRowHeight = 100*/
         tableView.rowHeight = UITableView.automaticDimension
-        
         tableView.register(UINib(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
     }
 
@@ -64,16 +75,28 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        tableView.reloadData()
+    }
+}
+
 extension ViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postList?.count ?? 0
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PostTableViewCell
+        let post = fetchedResultsController.object(at: indexPath)
         
-        cell.label?.text = postList?[indexPath.row].body
-        cell.textView?.text = postList?[indexPath.row].body
+        cell.label?.text = post.title
+        cell.textView?.text = post.body
         
         return cell
     }

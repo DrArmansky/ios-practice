@@ -24,15 +24,15 @@ class PostsDataProvider {
         self.networkManager = networkManager
     }
     
-    func fetchPosts(completion: @escaping(String?) -> Void) {
+    public func fetchPosts(completion: @escaping(Bool, String?) -> Void) {
         networkManager.getPots { posts, error in
             if let error = error {
-                completion(error)
+                completion(false, error)
                 return
             }
             
             guard let posts = posts else {
-                completion("Posts are underfined.")
+                completion(false, "Posts are underfined.")
                 return
             }
             
@@ -40,9 +40,40 @@ class PostsDataProvider {
             taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             taskContext.undoManager = nil
             
-            _ = self.syncPosts(posts: posts, taskContext: taskContext)
+            let result = self.syncPosts(posts: posts, taskContext: taskContext)
             
-            completion(nil)
+            completion(result, nil)
+        }
+    }
+    
+    public func sendNewPost(postData: PostRequest, complection: @escaping(Int?, String?) -> Void) {
+        networkManager.addPost(body: postData) { (postResponse, error) in
+            if let error = error {
+                complection(nil, error)
+                return
+            }
+            
+            guard var post = postResponse else {
+                complection(nil, "Adding post is not success.")
+                return
+            }
+            
+            let taskContext = self.persistentContainer.newBackgroundContext()
+                 taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                 taskContext.undoManager = nil
+            
+            post.body = postData.body
+            post.title = postData.title
+            post.userId = postData.userId
+            
+            if self.syncPosts(posts: [post], taskContext: taskContext) {
+                DispatchQueue.main.async {
+                    complection(post.id, nil)
+                }
+                return
+            }
+            
+            complection(nil, "Post was added, but didn't save.")
         }
     }
     

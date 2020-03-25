@@ -42,35 +42,36 @@ class ViewController: UIViewController {
         setup()
         
         super.viewDidLoad()
-        dataProvider.fetchPosts { (error) in
-            print(error as Any)
+        dataProvider.fetchPosts { (success, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if (!success) {
+                print("Fetch is not success, without error.")
+            }
         }
     }
     
     private func setup() {
         tableView.dataSource = self
-        /*tableView.estimatedRowHeight = 100*/
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(UINib(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
     }
 
     
     @IBAction func addTestPost() {
-        NetworkManager().addPost(body: testPostData) { (post, error) in
+        dataProvider.sendNewPost(postData: testPostData) { (id, error) in
             if let error = error {
                 print(error)
                 return
             }
             
-            guard let post = post else { return }
-            
-            DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Новый пост добавлен", message: "Новому посту присвоен идентификатор \(post.id)", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                
-                self.present(alert, animated: true)
-            }
+            let alert = UIAlertController(title: "Новый пост добавлен", message: "Новому посту присвоен идентификатор \(String(describing: id))", preferredStyle: .alert)
+             
+             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+             self.present(alert, animated: true)
         }
     }
 }
